@@ -1,0 +1,67 @@
+<section class="user-list">
+  <header class="user-list__header">
+    <h2 class="user-list__title">Список пользователей</h2>
+
+    <div class="user-list__controls" role="search">
+      <label class="control control--search">
+        <span class="control__label">Поиск по имени</span>
+        <input
+          type="search"
+          class="control__input"
+          placeholder="Например, Дмитрий"
+          [formControl]="searchCtrl"
+          aria-label="Поиск пользователей по имени"
+        />
+      </label>
+
+      <label class="control control--filter">
+        <span class="control__label">Статус</span>
+        <select class="control__select" [formControl]="statusCtrl" aria-label="Фильтр по статусу">
+          <option value="all">Все</option>
+          <option value="active">Только активные</option>
+          <option value="inactive">Только неактивные</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <div class="user-list__content">
+    <ul class="list" role="listbox" aria-label="Пользователи">
+      <li
+        *ngFor="let u of filteredUsers$ | async; trackBy: trackById"
+        class="list__item"
+        [class.list__item--inactive]="!u.active"
+        tabindex="0"
+        role="option"
+        (click)="selectUser(u)"
+        (keyup.enter)="selectUser(u)"
+        [attr.aria-selected]="selectedEmail === u.email"
+      >
+        <div class="list__main">
+          <span class="list__name">{{ u.name }}</span>
+          <span class="badge" [class.badge--green]="u.active" [class.badge--red]="!u.active">
+            {{ u.active ? 'Активен' : 'Неактивен' }}
+          </span>
+        </div>
+        <div class="list__meta">ID: {{ u.id }}</div>
+      </li>
+
+      <li class="list__empty" *ngIf="(filteredUsers$ | async)?.length === 0">
+        Ничего не найдено :(
+      </li>
+    </ul>
+
+    <aside class="email-panel">
+      <h3 class="email-panel__title">Email выбранного пользователя</h3>
+      <ng-container *ngIf="selectedEmail as email; else emptyEmail">
+        <a class="email-panel__value" href="mailto:{{ email }}">
+          {{ email }}
+        </a>
+        <button class="btn btn--ghost" type="button" (click)="clearSelection()">Очистить</button>
+      </ng-container>
+      <ng-template #emptyEmail>
+        <div class="email-panel__placeholder">Кликните по пользователю, чтобы увидеть email</div>
+      </ng-template>
+    </aside>
+  </div>
+</section>

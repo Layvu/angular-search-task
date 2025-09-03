@@ -1,0 +1,55 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Angular
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/.angular/cache
+coverage/
+e2e/dist/
+*.local
+.env
+.env.local
+
+# IDE
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode
+.history/*
+.editorconfig
+
+# Visual Studio Code — разрешаем важные настройки
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Build & test artifacts
+*.log
+*.tmp
+*.temp
+/libpeerconnection.log
+testem.log
+/typings
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor swap files
+*.swp
+*.swo
+
+# System & cache
+.sass-cache/
+.connect.lock
